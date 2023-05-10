@@ -1,20 +1,21 @@
 
+import { Commit } from "vuex";
 import axios from "axios";
+
 import { IUser } from "@/interfaces/IUser";
 import { IAuthStore } from "@/interfaces/IAuthStore";
-import { Commit } from "vuex";
 
 
 const state: IAuthStore = {
-	token: localStorage.getItem("token") || null,
+	token: localStorage.getItem('token') || null,
 	user: null
 };
 
 const mutations = {
 	setToken(state: IAuthStore, token: string) {
 		state.token = token;
-		localStorage.setItem("token", token);
-		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+		localStorage.setItem('token', token);
+		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 	},
 
 	setUser(state: IAuthStore, user: IUser) {
@@ -24,22 +25,22 @@ const mutations = {
 	logout(state: IAuthStore) {
 		state.token = null;
 		state.user = null;
-		localStorage.removeItem("token");
-		delete axios.defaults.headers.common["Authorization"];
+		localStorage.removeItem('token');
+		delete axios.defaults.headers.common['Authorization'];
 	}
 };
 
 const actions = {
 	async login({ commit }: { commit: Commit }, credentials: { username: string, password: string }) {
-		const response = await axios.post("/users/login", credentials);
+		const response = await axios.post('/users/login', credentials);
 		const token = response.data.token;
 		const user = response.data.user;
-		commit("setToken", token);
-		commit("setUser", user);
+		commit('setToken', token);
+		commit('setUser', user);
 	},
 
 	async logout({ commit }: { commit: Commit }) {
-		commit("logout");
+		commit('logout');
 	}
 };
 
