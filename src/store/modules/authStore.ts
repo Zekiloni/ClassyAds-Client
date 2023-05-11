@@ -33,8 +33,16 @@ const mutations = {
 const actions = {
 	async login({ commit }: { commit: Commit }, credentials: { username: string, password: string }) {
 		const response = await axios.post('/users/login', credentials);
-		const token = response.data.token;
-		const user = response.data.user;
+		const { token, user } = response.data;
+
+		commit('setToken', token);
+		commit('setUser', user);
+	},
+
+	async register({ commit }: { commit: Commit }, userData: { firstName: string, lastName: string, username: string, password: string, dateOfBirth: string, emailAddress: string }) {
+		const response = await axios.post('/users/register', userData);
+		const { token, user } = response.data;
+
 		commit('setToken', token);
 		commit('setUser', user);
 	},
@@ -45,7 +53,7 @@ const actions = {
 };
 
 const getters = {
-	isLoggedIn: (state: IAuthStore) => !!state.token,
+	isAuthenticated: (state: IAuthStore) => !!state.token && !!state.user,
 	currentUser: (state: IAuthStore) => state.user
 };
 
