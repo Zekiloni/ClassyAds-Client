@@ -14,7 +14,6 @@ export interface IUser {
     city: string | null;
     province: string | null;
     postalCode: string | null;
-    hashedPassword: string;
     role: UserRole;
     lastLoginAt: Date | null;
     updatedAt: Date | null;
