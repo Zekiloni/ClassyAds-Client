@@ -2,7 +2,8 @@
     <div class="add-classified">
         <h2> Add new classified </h2>
         
-        <select name="classified-category">
+        <select name="classified-category" v-model="newClassified.categoryId" placeholder="Select a category">
+            <option :value="null"> None </option>
             <option v-for="category in categories" :value="category.id">
                 {{ category.name }}
             </option>
@@ -28,6 +29,10 @@ export default class AddClassifiedView extends Vue {
     currentUser!: IUser;
 
     categories!: ICategory[];
+
+    newClassified = {
+        categoryId: null
+    }
 
     mounted(): void {
     }

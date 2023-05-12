@@ -2,6 +2,16 @@ import { UserRole } from "@/enums/UserRole";
 import { IClassified } from "@/interfaces/IClassified";
 
 
+export interface IAuthInput {
+    username: string | null;
+    password: string | null;
+    emailAddress: string | null;
+    dateOfBirth: string | null;
+    firstName: string | null;
+    lastName: string | null;
+};
+
+
 export interface IUser {
     id: number;
     username: string;
@@ -21,4 +31,4 @@ export interface IUser {
     orders: IClassified[] | null;
     isAdmin: boolean;
     isSuperAdmin: boolean;
-}
+};

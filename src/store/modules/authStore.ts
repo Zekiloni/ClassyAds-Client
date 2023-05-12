@@ -2,7 +2,7 @@
 import { Commit } from "vuex";
 import axios from "axios";
 
-import { IUser } from "@/interfaces/IUser";
+import { IAuthInput, IUser } from "@/interfaces/IUser";
 import { IAuthStore } from "@/interfaces/IAuthStore";
 
 
@@ -32,14 +32,18 @@ const mutations = {
 
 const actions = {
 	async login({ commit }: { commit: Commit }, credentials: { username: string, password: string }) {
-		const response = await axios.post('/users/login', credentials);
-		const { token, user } = response.data;
-
-		commit('setToken', token);
-		commit('setUser', user);
+		axios.post('/users/login', credentials)
+			.then(respone => {
+				if (respone.status === 200 && respone.data) {
+					const { token, user }= respone.data as { token: string, user: IUser };
+					commit('setToken', token);
+					commit('setUser', user);
+				}
+			})
+			.catch(e => console.log(e))
 	},
 
-	async register({ commit }: { commit: Commit }, userData: { firstName: string, lastName: string, username: string, password: string, dateOfBirth: string, emailAddress: string }) {
+	async register({ commit }: { commit: Commit }, userData: IAuthInput) {
 		const response = await axios.post('/users/register', userData);
 		const { token, user } = response.data;
 

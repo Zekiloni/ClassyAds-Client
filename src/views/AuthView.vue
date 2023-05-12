@@ -22,23 +22,18 @@
 </template>
 
 <script lang="ts">
+import { IAuthInput } from "@/interfaces/IUser";
 import { Options, Vue } from "vue-class-component";
 import { mapActions, mapGetters } from "vuex";
 
 
-interface IAuthForm {
-    username: string | null;
-    password: string | null;
-    emailAddress: string | null;
-    dateOfBirth: string | null;
-    firstName: string | null;
-    lastName: string | null;
-};
+
 
 @Options({
     methods: {
         ...mapActions('authStore', ['login', 'register'])
     },
+
     computed: {
         ...mapGetters('authStore', ['isAuthenticated'])
     }
@@ -48,9 +43,9 @@ export default class AuthorizationView extends Vue {
 
     isAuthenticated!: boolean;
     login!: (credentials: { username: string | null, password: string | null }) => Promise<void>;
-    register!: (data: IAuthForm) => Promise<void>;
+    register!: (data: IAuthInput) => Promise<void>;
 
-    authInputs: IAuthForm = {
+    authInputs: IAuthInput = {
         username: null,
         password: null,
         emailAddress: null,

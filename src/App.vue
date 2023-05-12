@@ -1,19 +1,7 @@
 <template>
 	<div class="wrapper">
+		<Header />
 
-		<div class="header">
-			<Navigation />
-
-			<RouterLink v-if="isAuthenticated" class="add-classified" to="/add"> Add new </RouterLink>
-
-			<div class="user">
-				<div class="profile" v-if="isAuthenticated && currentUser">
-					<h4> Welcome {{ currentUser.username }}</h4>
-				</div>
-
-				<RouterLink v-else to="/auth"> Login / Register </RouterLink>
-			</div>
-		</div>
 
 		<RouterView />
 	</div>
@@ -25,12 +13,12 @@ import { mapActions, mapGetters } from "vuex";
 
 import { IUser } from "@/interfaces/IUser";
 
-import Navigation from "@/components/Navigation.vue";
+import Header from "@/components/Header.vue";
 
 
 @Options({
 	components: {
-		Navigation
+		Header
 	},
 	methods: {
 		...mapActions('mainStore', ['fetchCategories'])
