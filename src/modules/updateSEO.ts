@@ -2,7 +2,7 @@ import { RouteLocationNormalized } from "vue-router";
 
 
 export default (to: RouteLocationNormalized) => {
-    document.title = to.title || process.env.VUE_APP_TITLE;
+    document.title = to.title || process.env.VUE_APP_NAME;
 
     const metaTags = to.meta || {};
 
