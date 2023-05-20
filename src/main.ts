@@ -6,7 +6,7 @@ import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
 
-import stringUtils from "@/utils/stringUtils";
+import i18nLocalization from "@/modules/localization";
 
 process.env.VUE_APP_VERSION = require('../package.json').version;
 
@@ -16,8 +16,10 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const app = createApp(App);
 
+
+
 app.use(store)
-    .mixin(stringUtils)
     .use(router)
+    .use(i18nLocalization)
     .mount('#app');
 
