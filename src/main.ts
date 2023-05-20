@@ -8,6 +8,7 @@ import store from "@/store";
 
 import stringUtils from "@/utils/stringUtils";
 
+process.env.VUE_APP_VERSION = require('../package.json').version;
 
 axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 axios.defaults.withCredentials = true;
