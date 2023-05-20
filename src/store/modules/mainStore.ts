@@ -3,11 +3,12 @@ import axios from "axios";
 
 import { ICategory, ICreateCategoryInput } from "@/interfaces/ICategory";
 import { IMainStore } from "@/interfaces/IMainStore";
+import { IClassified } from "@/interfaces/IClassified";
 
 
 const state: IMainStore = {
     categories: [],
-    blog: []
+    classifieds: [],
 };
 
 const mutations = {
@@ -30,7 +31,7 @@ const mutations = {
 
 const actions = {
     async fetchCategories({ commit }: { commit: Commit }) {
-        axios.get('/categories')
+        axios.get(`/categories`)
             .then((response) => {
                 if (response.status === 200 && response.data) {
                     commit('setCategories', response.data as ICategory[]);
@@ -39,14 +40,26 @@ const actions = {
             .catch(e => console.log(e));
     },
 
+    async fetchClassified({ commit }: { commit: Commit }, classifiedId: number ) {
+        return axios.get(`/classifieds/${classifiedId}`)
+            .then(respone => {
+                if (respone.status === 200 && respone.data) {
+                    return respone.data as IClassified;
+                } else {
+                    return null;
+                }
+            })
+            .catch(e => console.log(e))
+    },
+
     async createCategory({ commit }: { commit: Commit }, newCategory: ICreateCategoryInput) {
-        axios.post('/categories/create', newCategory)
+        axios.post(`/categories/create`, newCategory)
             .then(response => {
                 if (response.status === 200 && response.data) {
                     commit('addCategory', response.data as ICategory);
                 }
             })
-    }
+    },
 };
 
 

@@ -6,12 +6,17 @@ import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
 
+import stringUtils from "@/utils/stringUtils";
+
 
 axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-createApp(App)
-    .use(store)
+const app = createApp(App);
+
+app.use(store)
+    .mixin(stringUtils)
     .use(router)
     .mount('#app');
+
