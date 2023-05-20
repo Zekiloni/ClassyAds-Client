@@ -1,9 +1,16 @@
 <template>
 	<div class="wrapper">
 		<Header />
+<!-- 
+		<transition name="fade" mode="out-in">
+			<RouterView></RouterView>
+		</transition> -->
 
-
-		<RouterView />
+		<RouterView v-slot="{ Component }">
+			<Transition name="fade" mode="out-in">
+				<Component :is="Component" />
+			</Transition>
+		</RouterView>
 	</div>
 </template>
 
@@ -14,6 +21,7 @@ import { mapActions, mapGetters } from "vuex";
 import { IUser } from "@/interfaces/IUser";
 
 import "@/assets/styles/main.scss";
+import "@/assets/styles/transitions.css";
 
 import Header from "@/components/Header.vue";
 
@@ -22,7 +30,7 @@ import Header from "@/components/Header.vue";
 	components: {
 		Header
 	},
-	
+
 	methods: {
 		...mapActions('mainStore', ['fetchCategories'])
 	},
@@ -39,6 +47,8 @@ export default class App extends Vue {
 
 	async mounted() {
 		await this.fetchCategories();
+
 	}
+
 };
 </script>
