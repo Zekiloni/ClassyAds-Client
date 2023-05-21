@@ -2,6 +2,13 @@ import { AdvertisementStatus } from "@/enums/AdvertisementStatus";
 import { IUser } from "@/interfaces/IUser";
 import { ICategory } from "@/interfaces/ICategory";
 
+export interface IAdvertisementSearchInput {
+	filter: string | null;
+	pageNumber: number;
+	pageSize: number;
+	categoryId: number | null;
+	sortBy: 'price_asc' | 'price_desc' | 'date_asc' | 'date_desc'
+}
 
 export interface IAdvertisement {
 	id: number;
