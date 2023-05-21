@@ -1,8 +1,8 @@
 <template>
-    <div class="add-classified">
-        <h2> Add new classified </h2>
+    <div class="add-advertisement">
+        <h2> Add new advertisement </h2>
         
-        <select name="classified-category" v-model="newClassified.categoryId" placeholder="Select a category">
+        <select name="advertisement-category" v-model="newAdvertisement.categoryId" placeholder="Select a category">
             <option :value="null"> None </option>
             <option v-for="category in categories" :value="category.id">
                 {{ category.name }}
@@ -24,13 +24,13 @@ import { ICategory } from "@/interfaces/ICategory";
         ...mapGetters('mainStore', ['categories'])
     }
 })
-export default class AddClassifiedView extends Vue {
+export default class AddAdvertisementView extends Vue {
     isAuthenticated!: boolean;
     currentUser!: IUser;
 
     categories!: ICategory[];
 
-    newClassified = {
+    newAdvertisement = {
         categoryId: null
     }
 

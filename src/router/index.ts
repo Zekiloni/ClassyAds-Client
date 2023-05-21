@@ -8,9 +8,9 @@ import AuthorizationView from "@/views/AuthView.vue";
 
 import NotFoundView from "@/views/NotFoundView.vue";
 
-import AddClassifiedView from "@/views/AddClassifiedView.vue";
-import SingleClassifiedView from "@/views/classified/SingleClassifiedView.vue";
-import EditClassifiedView from "@/views/classified/EditClassifiedView.vue";
+import AddAdvertisementView from "@/views/AddAdvertisementView.vue";
+import SingleAdvertisementView from "@/views/advertisement/SingleAdvertisementView.vue";
+import EditAdvertisementView from "@/views/advertisement/EditAdvertisementView.vue";
 
 import ProfileView from "@/views/user/ProfileView.vue";
 import EditProfileView from "@/views/user/EditProfileView.vue";
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
 		path: '/',
 		name: 'home',
 		meta: {
-			keywords: "classifieds, free ads"
+			keywords: "advertisements, free ads"
 		},
 		component: HomeView,
 	},
@@ -42,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/add',
 		name: 'add',
-		component: AddClassifiedView
+		component: AddAdvertisementView
 	},
 	{
 		path: '/:catchAll(.*)',
@@ -61,14 +61,14 @@ const routes: Array<RouteRecordRaw> = [
 		]
 	},
 	{
-		path: '/classified/:classifiedId?',
-		name: 'classified-view',
-		component: SingleClassifiedView,
+		path: '/advertisement/:advertisementId?',
+		name: 'advertisement-view',
+		component: SingleAdvertisementView,
 		children: [
 			{
 				path: 'edit',
-				name: 'edit-classified',
-				component: EditClassifiedView
+				name: 'edit-advertisement',
+				component: EditAdvertisementView
 			}
 		]
 	},

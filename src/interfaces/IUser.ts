@@ -1,5 +1,5 @@
 import { UserRole } from "@/enums/UserRole";
-import { IClassified } from "@/interfaces/IClassified";
+import { IAdvertisement } from "@/interfaces/IAdvertisement";
 
 
 export interface IAuthInput {
@@ -28,7 +28,7 @@ export interface IUser {
     lastLoginAt: Date | null;
     updatedAt: Date | null;
     createdAt: Date;
-    orders: IClassified[] | null;
+    orders: IAdvertisement[] | null;
     isAdmin: boolean;
     isSuperAdmin: boolean;
 };

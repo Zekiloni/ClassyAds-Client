@@ -3,12 +3,12 @@ import axios from "axios";
 
 import { ICategory, ICreateCategoryInput } from "@/interfaces/ICategory";
 import { IMainStore } from "@/interfaces/IMainStore";
-import { IClassified } from "@/interfaces/IClassified";
+import { IAdvertisement } from "@/interfaces/IAdvertisement";
 
 
 const state: IMainStore = {
     categories: [],
-    classifieds: [],
+    advertisements: [],
 };
 
 const mutations = {
@@ -40,11 +40,11 @@ const actions = {
             .catch(e => console.log(e));
     },
 
-    async fetchClassified({ commit }: { commit: Commit }, classifiedId: number ) {
-        return axios.get(`/classifieds/${classifiedId}`)
+    async fetchAdvertisement({ commit }: { commit: Commit }, advertisementId: number ) {
+        return axios.get(`/advertisements/${advertisementId}`)
             .then(respone => {
                 if (respone.status === 200 && respone.data) {
-                    return respone.data as IClassified;
+                    return respone.data as IAdvertisement;
                 } else {
                     return null;
                 }

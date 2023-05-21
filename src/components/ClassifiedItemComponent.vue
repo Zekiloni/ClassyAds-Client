@@ -1,26 +1,26 @@
 <template>
-    <div class="classified-list-item">
-        <h4> {{ truncate(classified.title, 24) }} </h4>
+    <div class="advertisement-list-item">
+        <h4> {{ truncate(advertisement.title, 24) }} </h4>
     </div>
 </template>
 
 <script lang="ts">
 import { Options, mixins } from "vue-class-component";
 
-import { IClassified } from "@/interfaces/IClassified";
+import { IAdvertisement } from "@/interfaces/IAdvertisement";
 import StringUtils from "@/utils/stringUtils";
 
 
 @Options({
     props: {
-        classified: {
+        advertisement: {
             type: Object,
             required: true
         }
     }
 })
-export default class ClassifiedItemComponent extends mixins(StringUtils) {
-    classified!: IClassified;
+export default class AdvertisementItemComponent extends mixins(StringUtils) {
+    advertisement!: IAdvertisement;
     
     mounted(): void {
     }

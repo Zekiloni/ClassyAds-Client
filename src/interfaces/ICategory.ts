@@ -1,4 +1,4 @@
-import { IClassified } from "@/interfaces/IClassified";
+import { IAdvertisement } from "@/interfaces/IAdvertisement";
 
 
 export interface ICreateCategoryInput {
@@ -13,7 +13,7 @@ export interface ICategory {
     description: string;
     parentCategoryId: number | null;
     createdAt: Date;
-    classifieds: IClassified[] | null;
+    advertisements: IAdvertisement[] | null;
     parentCategory: ICategory | null;
     childCategories: ICategory[] | null;
 }

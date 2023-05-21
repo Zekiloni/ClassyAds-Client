@@ -1,8 +1,8 @@
 <template>
-    <div class="classified-single-view" v-if="classified">
-        <h2> {{  classified.title }} </h2>
+    <div class="advertisement-single-view" v-if="advertisement">
+        <h2> {{  advertisement.title }} </h2>
 
-        {{  classified }}
+        {{  advertisement }}
 
         <div class="options">
 
@@ -16,7 +16,7 @@
 import { Options, Vue } from "vue-class-component";
 import { mapActions, mapGetters } from "vuex";
 
-import { IClassified } from "@/interfaces/IClassified";
+import { IAdvertisement } from "@/interfaces/IAdvertisement";
 import { IUser } from "@/interfaces/IUser";
 
 
@@ -26,31 +26,31 @@ import { IUser } from "@/interfaces/IUser";
     },
     
     methods: {
-        ...mapActions('mainStore', ['fetchClassified'])
+        ...mapActions('mainStore', ['fetchAdvertisement'])
     }
 })
-export default class SingleClassifiedView extends Vue {
-    fetchClassified!: (classifiedId: number) => Promise<void | null | IClassified>;
+export default class SingleAdvertisementView extends Vue {
+    fetchAdvertisement!: (advertisementId: number) => Promise<void | null | IAdvertisement>;
     isAuthenticated!: boolean;
 	currentUser!: IUser | null;
 
-    classified: null | IClassified = null;
+    advertisement: null | IAdvertisement = null;
 
     get isCurrentUserAuthor() {
-        return (this.classified && this.currentUser) && (this.currentUser.id === this.classified.userId);
+        return (this.advertisement && this.currentUser) && (this.currentUser.id === this.advertisement.userId);
     }
 
     async mounted() {
-        const classifiedId: string | undefined = this.$route.params.classifiedId as string;
+        const advertisementId: string | undefined = this.$route.params.advertisementId as string;
 
-        if (!classifiedId) {
+        if (!advertisementId) {
             this.$router.push('/404');
         }
 
-        const classified = await this.fetchClassified(parseInt(classifiedId));
+        const advertisement = await this.fetchAdvertisement(parseInt(advertisementId));
 
-        if (classified) {
-            this.classified = classified;
+        if (advertisement) {
+            this.advertisement = advertisement;
         } else {
             this.$router.push('/404');
         }

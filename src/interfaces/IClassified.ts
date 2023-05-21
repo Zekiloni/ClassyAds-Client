@@ -1,9 +1,9 @@
-import { ClassifiedStatus } from "@/enums/ClassifiedStatus";
+import { AdvertisementStatus } from "@/enums/AdvertisementStatus";
 import { IUser } from "@/interfaces/IUser";
 import { ICategory } from "@/interfaces/ICategory";
 
 
-export interface IClassified {
+export interface IAdvertisement {
 	id: number;
 	categoryId: number;
 	title: string;
@@ -13,7 +13,7 @@ export interface IClassified {
 	isNegotiable: boolean;
 	make?: string | null;
 	model?: string | null;
-	status: ClassifiedStatus;
+	status: AdvertisementStatus;
 	isFeatured: boolean;
 	isPremium: boolean;
 	createdAt: Date;

@@ -9,10 +9,10 @@
         </nav>
 
         <div class="search">
-            <input type="text" v-model="searchClassifiedQuery" @keydown.enter="console.log('a')" spellcheck="false">
+            <input type="text" v-model="searchAdvertisementQuery" @keydown.enter="console.log('a')" spellcheck="false">
         </div>
 
-        <RouterLink v-if="isAuthenticated" class="add-classified" to="/add"> Add new </RouterLink>
+        <RouterLink v-if="isAuthenticated" class="add-advertisement" to="/add"> Add new </RouterLink>
 
         <div class="authentication">
             <div class="profile" v-if="isAuthenticated && currentUser">
@@ -44,7 +44,7 @@ export default class Header extends Vue {
     isAuthenticated!: boolean;
     currentUser!: IUser | null;
     
-    searchClassifiedQuery: string | null = null;
+    searchAdvertisementQuery: string | null = null;
 
     get appName() {
         return process.env.VUE_APP_NAME || document.title;

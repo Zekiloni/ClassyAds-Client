@@ -1,4 +1,4 @@
-export enum ClassifiedStatus {
+export enum AdvertisementStatus {
     Draft,
     Active,
     Expired,
