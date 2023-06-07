@@ -12,6 +12,8 @@
 			</Transition>
 		</RouterView>
 	</div>
+
+
 </template>
 
 <script lang="ts">
@@ -20,7 +22,10 @@ import { mapActions, mapGetters } from "vuex";
 
 import { IUser } from "@/interfaces/IUser";
 
+import "boxicons";
+
 import "@/assets/styles/main.scss";
+import "@/assets/styles/inputs.scss";
 import "@/assets/styles/transitions.css";
 
 import Header from "@/components/Header.vue";

@@ -2,23 +2,36 @@
     <div class="header">
         <img class="logo" src="@/assets/logo.png" :alt="appName">
 
-        <nav>
-            <RouterLink to="/"> Home </RouterLink>
-            <RouterLink to="/about"> About </RouterLink>
-            <RouterLink v-if="currentUser && (currentUser.isAdmin || currentUser.isSuperAdmin)" to="/dashboard"> Dashboard </RouterLink>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <RouterLink to="/"> {{ $t('header.pages.home') }} </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink to="/about"> {{ $t('header.pages.about') }} </RouterLink>
+                </li>
+                <li class="nav-item">
+                    <RouterLink v-if="currentUser && (currentUser.isAdmin || currentUser.isSuperAdmin)" to="/dashboard">
+                        Dashboard </RouterLink>
+                </li>
+            </ul>
         </nav>
 
         <div class="search">
-            <input type="text" v-model="searchAdvertisementQuery" @keydown.enter="console.log('a')" spellcheck="false">
+            <input type="text" v-model="searchAdvertisementQuery" @keydown.enter="console.log('a')" spellcheck="false"
+                :placeholder="$t('header.search_placeholder')">
         </div>
 
-        <RouterLink v-if="isAuthenticated" class="add-advertisement" to="/add"> Add new </RouterLink>
+        <RouterLink v-if="isAuthenticated" class="add-advertisement" to="/add"> 
+            <span> {{ $t('header.add_new_advertisement') }} </span>
+            <box-icon name="plus" type="solid" color="#fff" ></box-icon>
+        </RouterLink>
 
         <div class="authentication">
             <div class="profile" v-if="isAuthenticated && currentUser">
+                <box-icon type='solid' name='user'></box-icon>
                 <h4> Welcome {{ currentUser.username }}</h4>
             </div>
-            
 
             <RouterLink v-else to="/auth"> Sign in </RouterLink>
         </div>
@@ -33,9 +46,9 @@ import { mapActions, mapGetters } from "vuex";
 
 @Options({
     computed: {
-		...mapGetters('authStore', ['isAuthenticated', 'currentUser'])
-	},
-    
+        ...mapGetters('authStore', ['isAuthenticated', 'currentUser'])
+    },
+
     methods: {
         ...mapActions('authStore', ['logout'])
     }
@@ -43,7 +56,7 @@ import { mapActions, mapGetters } from "vuex";
 export default class Header extends Vue {
     isAuthenticated!: boolean;
     currentUser!: IUser | null;
-    
+
     searchAdvertisementQuery: string | null = null;
 
     get appName() {
@@ -58,48 +71,75 @@ export default class Header extends Vue {
     align-items: center;
 
     margin-top: 24px;
+    margin-bottom: 24px;
+
     padding: 16px 24px;
 
-    border-radius: 16px;
+    border-radius: 8px;
 
     background-color: #fff;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 
     img.logo {
-        width: 45px;
+        width: 40px;
     }
 
     nav {
-        margin-left: 16px;
+        margin-left: 32px;
 
-        a {
-            font-weight: bold;
-            color: #2c3e50;
-            text-decoration: none;
-            font-size: 11pt;
+        ul.nav-list {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
 
-            margin-right: 8px;
+            li.nav-item {
+                margin-right: 16px;
 
-            transition: all .25s ease;
+                a {
+                    font-weight: bold;
+                    color: #2c3e50;
+                    text-decoration: none;
+                    font-size: 11pt;
+                    font-weight: 500;
 
-            &.router-link-exact-active {
-                color: #42b983;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    transition: background-color 0.3s ease;
+
+                    &.router-link-exact-active,
+                    &:hover {
+                        background-color: #f2f2f2;
+                        color: #42b983;
+                    }
+                }
             }
         }
     }
 
     .search {
         margin-left: 32px;
+    }
 
-        input[type="text"] {
-            border-radius: 8px;
-            background-color: #dcddde;
-            border: none;
-            padding: 12px 16px;
-            color: #181819;
+    .add-advertisement {
+        margin-left: auto;
+        color: #fefefe;
+        background-color: #42b983;
+        text-decoration: none;
+        font-size: 11pt;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 4px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            margin-right: 12px;
         }
     }
-    
+
     .authentication {
         margin-left: auto;
     }

@@ -1,0 +1,16 @@
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fefefe;
+    color: #131313;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 8px 12px;
+
+    &:focus {
+        outline: none;
+        border-color: #888888;
+    }
+}

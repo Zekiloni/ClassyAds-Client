@@ -1,3 +1,12 @@
 {
-    
+    "header": {
+        "pages": {
+            "home": "Home",
+            "about": "About us"
+        },
+
+        "search_placeholder": "Search advertisements...",
+
+        "add_new_advertisement": "Add new ad"
+    }
 }

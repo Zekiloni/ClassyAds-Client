@@ -2,16 +2,30 @@ import { Commit } from "vuex";
 import axios from "axios";
 
 import { ICategory, ICreateCategoryInput } from "@/interfaces/ICategory";
-import { IMainStore } from "@/interfaces/IMainStore";
+import { IMainStore, INotification } from "@/interfaces/IMainStore";
 import { IAdvertisement } from "@/interfaces/IAdvertisement";
 
+
+const NOTIFICATION_EXPIRE_TIME_MS = 5000;
 
 const state: IMainStore = {
     categories: [],
     advertisements: [],
+    notifications: []
 };
 
 const mutations = {
+    addNotification(state: IMainStore, notification: INotification) {
+        state.notifications.push(notification);
+    },
+
+    removeNotification(state: IMainStore, notification: INotification) {
+        const index = state.notifications.indexOf(notification);
+        if (index !== -1) {
+            state.notifications.splice(index, 1);
+        }
+    },
+
     setCategories(state: IMainStore, categories: ICategory[]) {
         state.categories = categories;
     },
@@ -30,6 +44,15 @@ const mutations = {
 };
 
 const actions = {
+    addNotification({ commit }: { commit: Commit }, notification: INotification) {
+        commit('addNotification', notification);
+
+        const notificationTimeoutId = setTimeout(() => {
+            commit('removeNotification', notification);
+            clearTimeout(notificationTimeoutId);
+        }, NOTIFICATION_EXPIRE_TIME_MS);
+    },
+
     async fetchCategories({ commit }: { commit: Commit }) {
         axios.get(`/categories`)
             .then((response) => {
@@ -40,7 +63,7 @@ const actions = {
             .catch(e => console.log(e));
     },
 
-    async fetchAdvertisement({ commit }: { commit: Commit }, advertisementId: number ) {
+    async fetchAdvertisement({ commit }: { commit: Commit }, advertisementId: number) {
         return axios.get(`/advertisements/${advertisementId}`)
             .then(respone => {
                 if (respone.status === 200 && respone.data) {
@@ -59,12 +82,13 @@ const actions = {
                     commit('addCategory', response.data as ICategory);
                 }
             })
-    },
+    }
 };
 
 
 const getters = {
-    categories: (state: IMainStore) => state.categories
+    categories: (state: IMainStore) => state.categories,
+    notifications: (state: IMainStore) => state.notifications
 };
 
 export default {

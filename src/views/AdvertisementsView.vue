@@ -20,6 +20,7 @@
                 </select>
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -28,7 +29,7 @@ import { mixins } from 'vue-class-component';
 
 import StringUtils from '@/utils/stringUtils';
 
-import { IAdvertisementSearchInput } from "@/interfaces/IAdvertisement";
+import { IAdvertisement, IAdvertisementSearchInput } from "@/interfaces/IAdvertisement";
 
 
 export default class AdvertisementsView extends mixins(StringUtils) {
@@ -36,9 +37,16 @@ export default class AdvertisementsView extends mixins(StringUtils) {
         filter: null,
         categoryId: null,
         pageNumber: 1,
-        pageSize: 1,
+        pageSize: 10,
         sortBy: 'date_desc'
     };
+
+    advertisements: IAdvertisement[] = [];
+
+    get currentAdvertisements() {
+        const start = (this.searchQuery.pageNumber - 1) * this.searchQuery.pageSize;
+        return this.advertisements.slice(start, start + this.searchQuery.pageSize);
+    }
 
     searchAdvertisement() {
         
