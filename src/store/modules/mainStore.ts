@@ -3,7 +3,8 @@ import axios from "axios";
 
 import { ICategory, ICreateCategoryInput } from "@/interfaces/ICategory";
 import { IMainStore, INotification } from "@/interfaces/IMainStore";
-import { IAdvertisement } from "@/interfaces/IAdvertisement";
+import { IAdvertisement, IAdvertisementSearchInput } from "@/interfaces/IAdvertisement";
+import { IPagedOutput } from "@/interfaces/IPagedResult";
 
 
 const NOTIFICATION_EXPIRE_TIME_MS = 5000;
@@ -73,6 +74,14 @@ const actions = {
                 }
             })
             .catch(e => console.log(e))
+    },
+
+
+    async fetchAdvertisements({ commit }: { commit: Commit }, searchQuery: IAdvertisementSearchInput) {
+        return axios.post(`/advertisements/search`, searchQuery)
+            .then(respone =>
+                (respone.status === 200 && respone.data) ? respone.data as IPagedOutput<IAdvertisement> : null
+            );
     },
 
     async createCategory({ commit }: { commit: Commit }, newCategory: ICreateCategoryInput) {

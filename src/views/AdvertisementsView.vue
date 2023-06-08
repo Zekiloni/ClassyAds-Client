@@ -11,7 +11,7 @@
         <div class="listings">
             <div class="sort-options">
                 <label for="sort-options"> Sort by </label>
-                <select v-model="searchQuery.sortBy" @change="searchAdvertisement">
+                <select v-model="searchQuery.sortBy" @change="updateAdvertisements">
                     <option value="">-- Select Sort Option --</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
@@ -25,14 +25,22 @@
 </template>
 
 <script lang="ts">
-import { mixins } from 'vue-class-component';
+import { Options, mixins } from "vue-class-component";
+import { mapActions } from "vuex";
 
-import StringUtils from '@/utils/stringUtils';
+import StringUtils from "@/utils/stringUtils";
 
 import { IAdvertisement, IAdvertisementSearchInput } from "@/interfaces/IAdvertisement";
+import { IPagedOutput } from "@/interfaces/IPagedResult";
 
-
+@Options({
+    methods: {
+        ...mapActions('mainStore', ['fetchAdvertisements'])
+    }
+})
 export default class AdvertisementsView extends mixins(StringUtils) {
+    fetchAdvertisements!: (query: IAdvertisementSearchInput) => Promise<IPagedOutput<IAdvertisement> | null>;
+
     searchQuery: IAdvertisementSearchInput = {
         filter: null,
         categoryId: null,
@@ -47,8 +55,16 @@ export default class AdvertisementsView extends mixins(StringUtils) {
         const start = (this.searchQuery.pageNumber - 1) * this.searchQuery.pageSize;
         return this.advertisements.slice(start, start + this.searchQuery.pageSize);
     }
+    
+    async updateAdvertisements() {
+        const fetchedAdsResponse = await this.fetchAdvertisements(this.searchQuery);
 
-    searchAdvertisement() {
+        if (fetchedAdsResponse) {
+            this.advertisements = fetchedAdsResponse.results;
+        }
+    }
+
+    mounted() {
         
     }
 };
