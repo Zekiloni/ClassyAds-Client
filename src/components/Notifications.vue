@@ -1,14 +1,14 @@
 <template>
-    <div class="notifications-container">
-        <div class="notification" v-for="(notification, i) in notifications" :class="notification.type" :key="i">
+    <ul class="notifications">
+        <li class="notification" v-for="(notification, i) in notifications" :class="notification.type" :key="i">
             <p> {{ notification.message }} </p>
-        </div>
-    </div>
+        </li>
+    </ul>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 import { INotification } from "@/interfaces/IMainStore";
 
@@ -21,3 +21,11 @@ export default class Notifications extends Vue {
     notifications!: INotification[];
 }
 </script>
+
+<style lang="scss" scoped>
+ul.notifications {
+    li {
+        padding: 8px 16px;
+    }
+}
+</style>
