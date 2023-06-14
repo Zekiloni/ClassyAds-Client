@@ -1,16 +1,27 @@
-import { AdvertisementStatus } from "@/enums/AdvertisementStatus";
 import { IUser } from "@/interfaces/IUser";
 import { ICategory } from "@/interfaces/ICategory";
+import { AdvertisementStatus } from "@/enums/AdvertisementStatus";
 
-export interface IAdvertisementSearchInput {
+
+interface IAdvertisementSearchInput {
 	filter: string | null;
 	pageNumber: number;
 	pageSize: number;
 	categoryId: number | null;
 	sortBy: 'price_asc' | 'price_desc' | 'date_asc' | 'date_desc'
-}
+};
 
-export interface IAdvertisement {
+
+interface ICreateAdvertisementInput {
+	title: string | null;
+	categoryId: number | null;
+	shortDescription: string | null;
+	description: string | null;
+	mediaFiles: File[] | null;
+};
+
+
+interface IAdvertisement {
 	id: number;
 	categoryId: number;
 	title: string;
@@ -29,4 +40,11 @@ export interface IAdvertisement {
 	userId: number;
 	user?: IUser | null;
 	category?: ICategory | null;
-}
+};
+
+
+export {
+	IAdvertisement,
+	IAdvertisementSearchInput,
+	ICreateAdvertisementInput
+};
