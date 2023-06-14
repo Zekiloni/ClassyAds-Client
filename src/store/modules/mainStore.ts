@@ -84,6 +84,17 @@ const actions = {
             );
     },
 
+    async fetchRecentAdvertisements({ commit }: { commit: Commit }, limit: number) {
+        return axios.get(`/api/advertisement/recent?limit=${limit}`)
+            .then(response => {
+                if (response.status === 200 && response.data) {
+                    return response.data as IAdvertisement[];
+                } else {
+                    return null;
+                }
+            }).catch(e => console.log(e))
+    },
+
     async createCategory({ commit }: { commit: Commit }, newCategory: ICreateCategoryInput) {
         axios.post(`/categories/create`, newCategory)
             .then(response => {
