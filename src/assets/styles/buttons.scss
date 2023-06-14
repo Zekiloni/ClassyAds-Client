@@ -1,0 +1,18 @@
+$button-background-color: #42b983;
+$button-text-color: #ffffff;
+$button-hover-background-color: lighten($button-background-color, 10%);
+
+button {
+    font-family: 'Roboto', sans-serif;
+    background-color: $button-background-color;
+    color: $button-text-color;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: $button-hover-background-color;
+    }
+}

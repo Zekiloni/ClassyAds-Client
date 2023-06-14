@@ -8,5 +8,20 @@
         "search_placeholder": "Search advertisements...",
 
         "add_new_advertisement": "Add new ad"
+    },
+
+    "new_advertisement": {
+        "title_label": "Title of the advertisement",
+        "title_example": "selling mercedes s500",
+
+        "category_label": "Category of the advertisement",
+
+        "description_label": "Description",
+
+        "create_ad_submit": "Create ad"
+    },
+
+    "profile_view": {
+        "page_title": "Profile of"
     }
 }
