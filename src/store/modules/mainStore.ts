@@ -16,7 +16,7 @@ const state: IMainStore = {
 };
 
 const mutations = {
-    addNotification(state: IMainStore, notification: INotification) {
+    createNotification(state: IMainStore, notification: INotification) {
         state.notifications.push(notification);
     },
 
@@ -46,7 +46,7 @@ const mutations = {
 
 const actions = {
     addNotification({ commit }: { commit: Commit }, notification: INotification) {
-        commit('addNotification', notification);
+        commit('createNotification', notification);
 
         const notificationTimeoutId = setTimeout(() => {
             commit('removeNotification', notification);

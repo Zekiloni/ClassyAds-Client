@@ -4,26 +4,29 @@ import updateSEO from "@/modules/updateSEO";
 
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
+import AdvertisementsView from "@/views/AdvertisementsView.vue";
 import AuthorizationView from "@/views/AuthView.vue";
 
 import NotFoundView from "@/views/NotFoundView.vue";
 
-import AddAdvertisementView from "@/views/AddAdvertisementView.vue";
+import AddAdvertisementView from "@/views/advertisement/AddAdvertisementView.vue";
 import SingleAdvertisementView from "@/views/advertisement/SingleAdvertisementView.vue";
 import EditAdvertisementView from "@/views/advertisement/EditAdvertisementView.vue";
 
 import ProfileView from "@/views/user/ProfileView.vue";
 import EditProfileView from "@/views/user/EditProfileView.vue";
 
-import DashboardView from "@/views/DashboardView.vue";
+import DashboardView from "@/views/dashboard/DashboardView.vue";
 import UsersView from "@/views/dashboard/UsersView.vue";
 import UserManagementView from "@/views/dashboard/UserManagementView.vue";
+import CategoriesView from "@/views/dashboard/CategoriesView.vue";
+import CategoryManagementView from "@/views/dashboard/CategoryManagementView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
 	{
-		path: '/',
 		name: 'home',
+		path: '/',
 		meta: {
 			keywords: "advertisements, free ads"
 		},
@@ -35,23 +38,18 @@ const routes: Array<RouteRecordRaw> = [
 		component: AboutView
 	},
 	{
-		path: '/auth',
 		name: 'auth',
+		path: '/auth',
 		component: AuthorizationView
 	},
 	{
-		path: '/add',
-		name: 'add',
-		component: AddAdvertisementView
-	},
-	{
-		path: '/:catchAll(.*)',
 		name: '404-not-found',
+		path: '/:catchAll(.*)',
 		component: NotFoundView
 	},
 	{
+		name: 'profile-view',
 		path: '/profile/:userId?',
-		name: 'profileView',
 		component: ProfileView,
 		children: [
 			{
@@ -61,8 +59,18 @@ const routes: Array<RouteRecordRaw> = [
 		]
 	},
 	{
+		name: 'create-advertisement',
+		path: '/add',
+		component: AddAdvertisementView
+	},
+	{
+		name: 'advertisements-view',
+		path: '/advertisements',
+		component: AdvertisementsView
+	},
+	{
+		name: 'single-advertisement',
 		path: '/advertisement/:advertisementId?',
-		name: 'advertisement-view',
 		component: SingleAdvertisementView,
 		children: [
 			{
@@ -73,23 +81,34 @@ const routes: Array<RouteRecordRaw> = [
 		]
 	},
 	{
-		path: '/dashboard',
 		name: 'dashboard',
+		path: '/dashboard',
 		component: DashboardView,
 		children: [
 			{
-
-				path: 'users',
+				name: 'categories',
+				path: 'categories',
+				component: CategoriesView,
+				children: [
+					{
+						name: 'category-management',
+						path: ':categoryId/manage',
+						component: CategoryManagementView
+					}
+				]
+			},
+			{
 				name: 'users',
+				path: 'users',
 				component: UsersView,
 				children: [
 					{
-						path: 'management',
-						name: 'userManagement',
+						name: 'user-management',
+						path: ':userId/manage',
 						component: UserManagementView
 					}
 				]
-			}
+			},
 		]
 	}
 ];

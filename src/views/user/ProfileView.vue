@@ -1,6 +1,12 @@
 <template>
-    <div class="profile-view">
-        {{ isLoggedIn }}
+    <div class="profile-view" v-if="user">
+        <h2> {{ $t('profile_view.page_title') }}: <b> {{ user?.username }} </b> </h2>
+
+        <ul>
+            <li v-for="(value, key) of currentUser">
+               {{ key }}: {{ value }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -13,7 +19,7 @@ import { IUser } from "@/interfaces/IUser";
 
 @Options({
     computed: {
-        ...mapGetters(['currentUser', 'isLoggedIn'])
+		...mapGetters('authStore', ['isAuthenticated', 'currentUser'])
     }
 })
 export default class ProfileView extends Vue {
@@ -25,8 +31,8 @@ export default class ProfileView extends Vue {
     created(): void {
         const { userId } = this.$route.params;
 
-        if (userId != null || userId != undefined) {
-            
+        if (!userId) {
+            this.user = this.currentUser;
         }
     }
 };

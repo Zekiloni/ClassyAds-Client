@@ -1,6 +1,6 @@
 <template>
     <div class="advertisement-single-view" v-if="advertisement">
-        <h2> {{  advertisement.title }} </h2>
+        <h2> {{ advertisement.title }} </h2>
 
         {{  advertisement }}
 

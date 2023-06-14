@@ -65,7 +65,7 @@ export default class AdvertisementsView extends mixins(StringUtils) {
     }
 
     mounted() {
-        
+        this.updateAdvertisements();
     }
 };
 </script>

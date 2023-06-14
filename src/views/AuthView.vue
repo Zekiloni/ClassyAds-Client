@@ -6,32 +6,35 @@
         </h2>
 
         <form @submit.prevent="submitAuth">
+            <label for="username"> username </label>
             <input type="text" v-model="authInputs.username" placeholder="Username" />
+
             <input type="password" v-model="authInputs.password" placeholder="Password" />
-            <input type="email" v-model="authInputs.emailAddress" placeholder="Email Address" />
 
             <div v-if="!isLoginSelected">
+                <input type="email" v-model="authInputs.emailAddress" placeholder="Email Address" />
                 <input type="date" name="date-of-birth" v-model="authInputs.dateOfBirth" placeholder="Birthday date" />
                 <input type="text" v-model="authInputs.firstName" placeholder="First Name" />
                 <input type="text" v-model="authInputs.lastName" placeholder="Last Name" />
             </div>
 
-            <button type="submit">{{ isLoginSelected ? 'Login' : 'Register' }}</button>
+            <button type="submit"> {{ isLoginSelected ? 'Login' : 'Register' }} </button>
         </form>
     </div>
 </template>
 
 <script lang="ts">
-import { IAuthInput } from "@/interfaces/IUser";
 import { Options, Vue } from "vue-class-component";
 import { mapActions, mapGetters } from "vuex";
 
-
+import { IAuthInput } from "@/interfaces/IUser";
+import { INotification } from "@/interfaces/IMainStore";
 
 
 @Options({
     methods: {
-        ...mapActions('authStore', ['login', 'register'])
+        ...mapActions('authStore', ['login', 'register']),
+        ...mapActions('mainStore', ['addNotification'])
     },
 
     computed: {
@@ -39,11 +42,12 @@ import { mapActions, mapGetters } from "vuex";
     }
 })
 export default class AuthorizationView extends Vue {
-    isLoginSelected: boolean = true;
-
     isAuthenticated!: boolean;
     login!: (credentials: { username: string | null, password: string | null }) => Promise<void>;
     register!: (data: IAuthInput) => Promise<void>;
+    addNotification!: (notification: INotification) => void;
+
+    isLoginSelected: boolean = true;
 
     authInputs: IAuthInput = {
         username: null,
@@ -82,8 +86,18 @@ export default class AuthorizationView extends Vue {
                 });
             }
         } catch (error) {
+            this.addNotification({
+                type: 'error',
+                message: 'eee'
+            })
             console.error(error);
         }
     }
 };
 </script>
+
+<style lang="scss">
+input {
+    display: block;
+}
+</style>

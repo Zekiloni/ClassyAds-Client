@@ -8,6 +8,8 @@ import store from "@/store";
 
 import i18nLocalization from "@/modules/localization";
 
+import { EventEmitter } from "@/utils/emmiter";
+
 process.env.VUE_APP_VERSION = require('../package.json').version;
 
 axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
@@ -16,7 +18,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const app = createApp(App);
 
-
+// app.config.globalProperties.$events = new EventEmitter()
 
 app.use(store)
     .use(router)

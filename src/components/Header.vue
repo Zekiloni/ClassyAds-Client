@@ -18,19 +18,19 @@
         </nav>
 
         <div class="search">
-            <input type="text" v-model="searchAdvertisementQuery" @keydown.enter="console.log('a')" spellcheck="false"
+            <input type="text" v-model="searchAdvertisementQuery" @keydown.enter="searchAdvertisements" spellcheck="false"
                 :placeholder="$t('header.search_placeholder')">
         </div>
 
-        <RouterLink v-if="isAuthenticated" class="add-advertisement" to="/add"> 
+        <RouterLink v-if="isAuthenticated" class="add-advertisement" to="/add">
             <span> {{ $t('header.add_new_advertisement') }} </span>
-            <box-icon name="plus" type="solid" color="#fff" ></box-icon>
+            <AkCirclePlusFill class="icon" />
         </RouterLink>
 
         <div class="authentication">
             <div class="profile" v-if="isAuthenticated && currentUser">
-                <box-icon type='solid' name='user'></box-icon>
-                <h4> Welcome {{ currentUser.username }}</h4>
+                <FaCircleUser />
+                <RouterLink to="/profile">{{ currentUser.username }} </RouterLink>
             </div>
 
             <RouterLink v-else to="/auth"> Sign in </RouterLink>
@@ -43,8 +43,14 @@ import { IUser } from "@/interfaces/IUser";
 import { Options, Vue } from "vue-class-component";
 import { mapActions, mapGetters } from "vuex";
 
+import { FaCircleUser, AkCirclePlusFill } from "@kalimahapps/vue-icons";
+
 
 @Options({
+    components: {
+        FaCircleUser, AkCirclePlusFill
+    },
+
     computed: {
         ...mapGetters('authStore', ['isAuthenticated', 'currentUser'])
     },
@@ -61,6 +67,10 @@ export default class Header extends Vue {
 
     get appName() {
         return process.env.VUE_APP_NAME || document.title;
+    }
+
+    searchAdvertisements() {
+        this.$router.push({ name: 'advertisements-view', query: { search: this.searchAdvertisementQuery } });
     }
 }
 </script>
@@ -105,7 +115,7 @@ export default class Header extends Vue {
 
                     padding: 8px 12px;
                     border-radius: 4px;
-                    transition: background-color 0.3s ease;
+                    transition: all .3s ease;
 
                     &.router-link-exact-active,
                     &:hover {
@@ -135,8 +145,18 @@ export default class Header extends Vue {
         justify-content: space-between;
         align-items: center;
 
+        transition: all .3s ease;
+
         span {
             margin-right: 12px;
+        }
+
+        .icon {
+            font-size: 16pt;
+        }
+
+        &:hover {
+            background-color: lighten(#42b983, 10%);
         }
     }
 
