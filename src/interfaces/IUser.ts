@@ -1,5 +1,6 @@
 import { UserRole } from "@/enums/UserRole";
 import { IAdvertisement } from "@/interfaces/IAdvertisement";
+import { IMessage } from "@/interfaces/IMessage";
 
 
 export interface IAuthInput {
@@ -10,7 +11,6 @@ export interface IAuthInput {
     firstName: string | null;
     lastName: string | null;
 };
-
 
 export interface IUser {
     id: number;
@@ -28,7 +28,8 @@ export interface IUser {
     lastLoginAt: Date | null;
     updatedAt: Date | null;
     createdAt: Date;
-    orders: IAdvertisement[] | null;
+    advertisements: IAdvertisement[] | null;
+    messages: IMessage[] | null;
     isAdmin: boolean;
     isSuperAdmin: boolean;
 };
