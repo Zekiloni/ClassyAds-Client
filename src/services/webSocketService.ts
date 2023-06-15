@@ -1,5 +1,6 @@
 import { client as WebSocketClient, connection as WebSocketConnection } from "websocket";
 
+
 export default class WebSocketService {
     public client: WebSocketClient | null;
     public connection: WebSocketConnection | null;
@@ -18,12 +19,6 @@ export default class WebSocketService {
             this.connection = connection;
 
             console.log('WebSocket connection opened.');
-
-            connection.on('message', (message) => {
-                if (message.type === 'utf8') {
-                    const data = JSON.parse(message.utf8Data);
-                }
-            });
 
             connection.on('close', () => {
                 console.log('WebSocket connection closed.');
